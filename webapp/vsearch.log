@@ -1,0 +1,2 @@
+ImmutableMultiDict([('phrase', 'Welcome to search4letters on the web'), ('letters', 'xyz')])|127.0.0.1|Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0|set()
+ImmutableMultiDict([('phrase', 'Welcome to search4letters on the web'), ('letters', 'ajdhkfa')])|127.0.0.1|Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0|{'h', 'a'}
