@@ -4,9 +4,9 @@ from vsearch import search4letters
 app = Flask(__name__)
 
 
-def log_request(req: 'flask_request', res: str) -> None:
+def log_request(req:'flask_request', res: str) -> None:
     with open('vsearch.log', 'a') as logfile:
-        print(req.form, req.remote_addr, req.user_agent, res, file=log, sep='|')
+        print(req.form, req.remote_addr, req.user_agent, res, file=logfile, sep='|')
 
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
