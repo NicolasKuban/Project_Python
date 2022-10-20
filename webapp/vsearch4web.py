@@ -5,8 +5,42 @@ app = Flask(__name__)
 
 
 def log_request(req:'flask_request', res: str) -> None:
-    with open('vsearch.log', 'a') as logfile:
-        print(req.form, req.remote_addr, req.user_agent, res, file=logfile, sep='|')
+    dbconfig = {
+        'host': '127.0.0.1',
+        'user': 'vsearch',
+        'password': 'vsearchpassd',
+        'database': 'vsearchlogDB',
+    }
+    import mysql.connector
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    print("Подключение")
+    _SQL = """
+        insert into log
+        (phrase, letters, ip, browser_string, results)
+        values
+        (%s, %s, %s, %s, %s)
+    """
+    print(_SQL)
+    print((req.form['phrase'],
+                            req.form['letters'],
+                            req.remote_addr,
+                            req.user_agent.browser,
+                            res,
+                            ))
+    cursor.execute(_SQL, (req.form['phrase'],
+                            req.form['letters'],
+                            req.remote_addr,
+                            "Mozilla",
+                            res,
+                            )
+    )
+    conn.commit()
+    print("Записано")
+    cursor.close()
+    conn.close()
+    # with open('vsearch.log', 'a') as logfile:
+    #     print(req.form, req.remote_addr, req.user_agent, res, file=logfile, sep='|')
 
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
